@@ -5,7 +5,7 @@
         <api_name>x_snc_airop.AROPUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>Shared utility methods for AIROP</description>
+        <description>Shared utility methods for AIROP.</description>
         <mobile_callable>false</mobile_callable>
         <name>AROPUtils</name>
         <sandbox_callable>false</sandbox_callable>
@@ -178,23 +178,35 @@ AROPUtils.prototype = {
     },
 
     isModuleEnabled: function(module) {
-        var propMap = {
-            'ITSM':            'x_snc_airop.run_itsm',
-            'ITOM':            'x_snc_airop.run_itom',
-            'CMDB':            'x_snc_airop.run_cmdb',
-            'HRSD':            'x_snc_airop.run_hrsd',
-                        'CSM':             'x_snc_airop.run_csm',
-            'FIELD_SERVICE':   'x_snc_airop.run_field_service',
-            'AIOPS':           'x_snc_airop.module.AIOPS.enabled',
-            'GRC':             'x_snc_airop.run_grc',
-            'SPM':             'x_snc_airop.run_spm',
-            'ITSM_PRO':        'x_snc_airop.run_itsm_pro',
-            'PLATFORM':        'x_snc_airop.run_platform',
-                        'VIRTUAL_AGENT':   'x_snc_airop.run_virtual_agent'
-        };
-        var prop = propMap[module];
-        return prop ? gs.getProperty(prop, 'false') === 'true' : false;
-    },
+    var propMap = {
+        'ITSM': 'x_snc_airop.module.ITSM.enabled',
+        'ITOM': 'x_snc_airop.module.ITOM.enabled',
+        'CMDB': 'x_snc_airop.module.CMDB.enabled',
+        'HRSD': 'x_snc_airop.module.HRSD.enabled',
+        'CSM': 'x_snc_airop.module.CSM.enabled',
+        'FIELD_SERVICE': 'x_snc_airop.module.FIELD_SERVICE.enabled',
+        'AIOPS': 'x_snc_airop.module.AIOPS.enabled',
+        'GRC': 'x_snc_airop.module.GRC.enabled',
+        'SPM': 'x_snc_airop.module.SPM.enabled',
+        'PLATFORM': 'x_snc_airop.module.PLATFORM.enabled',
+        'VIRTUAL_AGENT': 'x_snc_airop.module.VIRTUAL_AGENT.enabled',
+        'DEX': 'x_snc_airop.module.DEX.enabled',
+        'SECOPS': 'x_snc_airop.module.SECOPS.enabled',
+        'HS': 'x_snc_airop.module.HS.enabled',
+        'OTSM': 'x_snc_airop.module.OTSM.enabled',
+        'CREATOR': 'x_snc_airop.module.CREATOR.enabled',
+        'SPO': 'x_snc_airop.module.SPO.enabled',
+        'TPRM': 'x_snc_airop.module.TPRM.enabled',
+        'LSD': 'x_snc_airop.module.LSD.enabled',
+        'WSD': 'x_snc_airop.module.WSD.enabled',
+        'HAM': 'x_snc_airop.module.HAM.enabled',
+        'SAM': 'x_snc_airop.module.SAM.enabled'
+    };
+    var propName = propMap[module];
+    if (!propName) return false;
+    var prop = gs.getProperty(propName, 'false');
+    return prop ? gs.getProperty(propName, 'false') === 'true' : false;
+},
 
     getDateRangeFilter: function() {
         return {
@@ -250,13 +262,13 @@ AROPUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-05 17:55:16</sys_created_on>
         <sys_id>b319162bcfe84b908935fb251d851c5c</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>20</sys_mod_count>
         <sys_name>AROPUtils</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_b319162bcfe84b908935fb251d851c5c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-29 20:53:19</sys_updated_on>
+        <sys_updated_on>2026-06-18 08:49:57</sys_updated_on>
     </sys_script_include>
 </record_update>

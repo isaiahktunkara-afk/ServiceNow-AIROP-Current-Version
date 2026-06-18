@@ -5,7 +5,7 @@
         <api_name>x_snc_airop.AROPCheckLibrary_ITSM</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>AIROP check library for ITSM module</description>
+        <description>AIROP check library for ITSM module.</description>
         <mobile_callable>false</mobile_callable>
         <name>AROPCheckLibrary_ITSM</name>
         <sandbox_callable>false</sandbox_callable>
@@ -1832,13 +1832,13 @@ AROPCheckLibrary_ITSM.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-21 05:02:10</sys_created_on>
         <sys_id>93724e60cfc5c3548935fb251d851ca1</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>AROPCheckLibrary_ITSM</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_93724e60cfc5c3548935fb251d851ca1</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-10 06:41:21</sys_updated_on>
+        <sys_updated_on>2026-06-18 08:49:57</sys_updated_on>
     </sys_script_include>
 </record_update>

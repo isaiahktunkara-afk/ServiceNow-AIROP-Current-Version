@@ -5,7 +5,7 @@
         <api_name>x_snc_airop.AROPAjax</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>AIROP GlideAjax handler - extends AbstractAjaxProcessor</description>
+        <description>AIROP GlideAjax handler - extends AbstractAjaxProcessor.</description>
         <mobile_callable>false</mobile_callable>
         <name>AROPAjax</name>
         <sandbox_callable>false</sandbox_callable>
@@ -67,13 +67,13 @@ AROPAjax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-06 07:19:44</sys_created_on>
         <sys_id>dc2291f3cfe803d08935fb251d851cab</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>AROPAjax</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_dc2291f3cfe803d08935fb251d851cab</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-03 19:41:23</sys_updated_on>
+        <sys_updated_on>2026-06-18 08:49:58</sys_updated_on>
     </sys_script_include>
 </record_update>

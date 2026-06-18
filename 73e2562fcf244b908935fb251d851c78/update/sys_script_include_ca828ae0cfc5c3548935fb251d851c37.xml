@@ -5,7 +5,7 @@
         <api_name>x_snc_airop.AROPCheckLibrary_CSM</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>AIROP check library for CSM module</description>
+        <description>AIROP check library for CSM module.</description>
         <mobile_callable>false</mobile_callable>
         <name>AROPCheckLibrary_CSM</name>
         <sandbox_callable>false</sandbox_callable>
@@ -661,13 +661,13 @@ AROPCheckLibrary_CSM.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-21 05:02:21</sys_created_on>
         <sys_id>ca828ae0cfc5c3548935fb251d851c37</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>AROPCheckLibrary_CSM</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_ca828ae0cfc5c3548935fb251d851c37</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-10 06:41:21</sys_updated_on>
+        <sys_updated_on>2026-06-18 08:49:58</sys_updated_on>
     </sys_script_include>
 </record_update>

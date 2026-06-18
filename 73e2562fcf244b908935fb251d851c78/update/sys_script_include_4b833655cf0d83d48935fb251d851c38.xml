@@ -5,7 +5,7 @@
         <api_name>x_snc_airop.AROP_SECOPS</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description/>
+        <description>Script Include.</description>
         <mobile_callable>false</mobile_callable>
         <name>AROP_SECOPS</name>
         <sandbox_callable>false</sandbox_callable>
@@ -63,13 +63,13 @@ AROP_SECOPS.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-23 16:32:25</sys_created_on>
         <sys_id>4b833655cf0d83d48935fb251d851c38</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>AROP_SECOPS</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_4b833655cf0d83d48935fb251d851c38</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-23 16:33:42</sys_updated_on>
+        <sys_updated_on>2026-06-18 08:49:55</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_airop.AIROPSettingsAjax</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Script Include.</description>
+        <mobile_callable>false</mobile_callable>
+        <name>AIROPSettingsAjax</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[// AIROPSettingsAjax - handles module settings loads and saves
+// Scoped Script Include in x_snc_airop
+
+var AIROPSettingsAjax = Class.create();
+AIROPSettingsAjax.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+    
+    getModuleSettings: function() {
+        var modules = ['AIOPS', 'CMDB', 'CREATOR', 'CSM', 'DEX', 'FIELD_SERVICE', 'GRC', 'HAM', 'HRSD', 'ITOM', 'ITSM', 'LSD', 'OTSM', 'PLATFORM', 'SECOPS', 'SAM', 'SPM', 'SPO', 'TPRM', 'VA', 'WSD'];
+        var settings = {};
+        
+        modules.forEach(function(module) {
+            var propName = 'x_snc_airop.module.' + module + '.enabled';
+            var value = gs.getProperty(propName, 'false');
+            settings[module] = (value === 'true');
+        });
+        
+        return JSON.stringify(settings);
+    },
+    
+    saveModuleSettings: function() {
+        var modules = ['AIOPS', 'CMDB', 'CREATOR', 'CSM', 'DEX', 'FIELD_SERVICE', 'GRC', 'HAM', 'HRSD', 'ITOM', 'ITSM', 'LSD', 'OTSM', 'PLATFORM', 'SECOPS', 'SAM', 'SPM', 'SPO', 'TPRM', 'VA', 'WSD'];
+        var result = {
+            success: true,
+            error: null,
+            saved: []
+        };
+        
+        try {
+            modules.forEach(function(module) {
+                var propName = 'x_snc_airop.module.' + module + '.enabled';
+                var value = this.getParameter(module);
+                var enabled = (value === 'true' || value === true);
+                gs.setProperty(propName, enabled ? 'true' : 'false');
+                result.saved.push(module + '=' + (enabled ? 'true' : 'false'));
+            }, this);
+        } catch (e) {
+            result.success = false;
+            result.error = e.message;
+        }
+        
+        return JSON.stringify(result);
+    },
+    
+    type: 'AIROPSettingsAjax'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 00:03:43</sys_created_on>
+        <sys_id>2c8a4d69cf6583d48935fb251d851cb7</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>AIROPSettingsAjax</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>sys_script_include_2c8a4d69cf6583d48935fb251d851cb7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 08:49:55</sys_updated_on>
+    </sys_script_include>
+</record_update>
