@@ -14,20 +14,22 @@ AROPCheckLibrary_CREATOR.prototype = {
     initialize: function() {},
     _count: function(table, query) { var gr = new GlideRecord(table); if (query) gr.addEncodedQuery(query); gr.query(); return gr.getRowCount(); },
     _pct: function(num, den) { return den > 0 ? Math.round((num/den)*100) : 0; },
-    CHK0000557: function() {
+    CHK0000873: function() {
         try {
             return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_now_creator");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Creator is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for Creator (sn_now_creator) not installed."};
+var ga=new GlideAggregate("sys_update_set");
+ga.addQuery("state","!=","ignore");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" update sets",finding:c+" update sets found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" update sets",finding:c+" update set(s) found."};
+return{status:"needs_attention",actualValue:"0 update sets",finding:"No update sets found."};
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000557: ' + e.message };
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000873: ' + e.message };
         }
     },
-    CHK0000561: function() {
+    CHK0000871: function() {
         try {
             return (function() {
     var t = new GlideRecord("sys_atf_test_suite");
@@ -43,109 +45,10 @@ return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist fo
     return { status: "value_blocker", actualValue: "0 test suites", finding: "No ATF test suites found. Without test coverage, AI-generated code cannot be safely validated before deployment." };
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000561: ' + e.message };
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000871: ' + e.message };
         }
     },
-    CHK0000565: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sys_hub_flow");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=50)return{status:"ready",actualValue:c+" flows",finding:c+" Flow Designer flows found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" flows",finding:c+" flows found."};
-return{status:"needs_attention",actualValue:"0 flows",finding:"No Flow Designer flows found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000565: ' + e.message };
-        }
-    },
-    CHK0000558: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sys_update_set");
-ga.addQuery("state","!=","ignore");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" update sets",finding:c+" update sets found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" update sets",finding:c+" update set(s) found."};
-return{status:"needs_attention",actualValue:"0 update sets",finding:"No update sets found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000558: ' + e.message };
-        }
-    },
-    CHK0000562: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_nowassist_va");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Virtual Agent is installed."};
-return{status:"needs_attention",actualValue:"Not installed",finding:"Now Assist for Virtual Agent (sn_nowassist_va) not installed."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000562: ' + e.message };
-        }
-    },
-    CHK0000566: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sc_cat_item");
-ga.addQuery("sys_class_name","!=","sc_cat_item_producer");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=50)return{status:"ready",actualValue:c+" items",finding:c+" catalog items found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" items",finding:c+" catalog items found."};
-return{status:"value_blocker",actualValue:"0 items",finding:"No catalog items found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000566: ' + e.message };
-        }
-    },
-    CHK0000559: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sys_app_application");
-ga.addQuery("scope","!=","global");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" custom apps",finding:c+" custom scoped apps found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" custom apps",finding:c+" custom app(s) found."};
-return{status:"needs_attention",actualValue:"0 custom apps",finding:"No custom scoped apps found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000559: ' + e.message };
-        }
-    },
-    CHK0000563: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_app_eng_studio_project");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=5)return{status:"ready",actualValue:c+" projects",finding:c+" AES projects found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" projects",finding:c+" AES project(s) found."};
-return{status:"needs_attention",actualValue:"0 projects",finding:"No App Engine Studio projects found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000563: ' + e.message };
-        }
-    },
-    CHK0000560: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_now_assist_code");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist Code Generation is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist Code Generation (sn_now_assist_code) not installed."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000560: ' + e.message };
-        }
-    },
-    CHK0000564: function() {
+    CHK0000879: function() {
         try {
             return (function(){
 var ga=new GlideAggregate("sys_user_has_role");
@@ -157,7 +60,250 @@ if(c>0)return{status:"needs_attention",actualValue:c+" developers",finding:c+" d
 return{status:"needs_attention",actualValue:"0 developers",finding:"No users with developer roles found."};
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000564: ' + e.message };
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000879: ' + e.message };
+        }
+    },
+    CHK0000877: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_app_eng_studio_project");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=5)return{status:"ready",actualValue:c+" projects",finding:c+" AES projects found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" projects",finding:c+" AES project(s) found."};
+return{status:"needs_attention",actualValue:"0 projects",finding:"No App Engine Studio projects found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000877: ' + e.message };
+        }
+    },
+    CHK0000875: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sc_cat_item");
+ga.addQuery("sys_class_name","!=","sc_cat_item_producer");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=50)return{status:"ready",actualValue:c+" items",finding:c+" catalog items found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" items",finding:c+" catalog items found."};
+return{status:"value_blocker",actualValue:"0 items",finding:"No catalog items found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000875: ' + e.message };
+        }
+    },
+    CHK0001183: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_now_creator");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Creator is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for Creator (sn_now_creator) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001183: ' + e.message };
+        }
+    },
+    CHK0001192: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_user_has_role");
+ga.addQuery("role.name","IN","admin,mid_server,app_engine_developer,delegated_developer");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" developers",finding:c+" users with developer roles found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" developers",finding:c+" developer(s) found."};
+return{status:"needs_attention",actualValue:"0 developers",finding:"No users with developer roles found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001192: ' + e.message };
+        }
+    },
+    CHK0001188: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sc_cat_item");
+ga.addQuery("sys_class_name","!=","sc_cat_item_producer");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=50)return{status:"ready",actualValue:c+" items",finding:c+" catalog items found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" items",finding:c+" catalog items found."};
+return{status:"value_blocker",actualValue:"0 items",finding:"No catalog items found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001188: ' + e.message };
+        }
+    },
+    CHK0001184: function() {
+        try {
+            return (function() {
+    var t = new GlideRecord("sys_atf_test_suite");
+    if (!t.isValid()) {
+        return { status: "value_blocker", actualValue: "Required table sys_atf_test_suite not found", finding: "ATF Test Suite table is not available. Verify the Automated Test Framework plugin is active." };
+    }
+    var ga = new GlideAggregate("sys_atf_test_suite");
+    ga.addAggregate("COUNT");
+    ga.query();
+    var c = ga.next() ? parseInt(ga.getAggregate("COUNT")) : 0;
+    if (c >= 10) return { status: "ready", actualValue: c + " test suites", finding: c + " ATF test suites found. Sufficient test coverage to validate AI-generated code safely." };
+    if (c > 0) return { status: "needs_attention", actualValue: c + " test suites", finding: c + " ATF test suite(s) found (target: 10+). Limited test coverage increases risk when deploying Now Assist generated code." };
+    return { status: "value_blocker", actualValue: "0 test suites", finding: "No ATF test suites found. Without test coverage, AI-generated code cannot be safely validated before deployment." };
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001184: ' + e.message };
+        }
+    },
+    CHK0001189: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_app_application");
+ga.addQuery("scope","!=","global");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" custom apps",finding:c+" custom scoped apps found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" custom apps",finding:c+" custom app(s) found."};
+return{status:"needs_attention",actualValue:"0 custom apps",finding:"No custom scoped apps found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001189: ' + e.message };
+        }
+    },
+    CHK0000872: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_hub_flow");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=50)return{status:"ready",actualValue:c+" flows",finding:c+" Flow Designer flows found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" flows",finding:c+" flows found."};
+return{status:"needs_attention",actualValue:"0 flows",finding:"No Flow Designer flows found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000872: ' + e.message };
+        }
+    },
+    CHK0000878: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_now_assist_code");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist Code Generation is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist Code Generation (sn_now_assist_code) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000878: ' + e.message };
+        }
+    },
+    CHK0000876: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_app_application");
+ga.addQuery("scope","!=","global");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" custom apps",finding:c+" custom scoped apps found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" custom apps",finding:c+" custom app(s) found."};
+return{status:"needs_attention",actualValue:"0 custom apps",finding:"No custom scoped apps found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000876: ' + e.message };
+        }
+    },
+    CHK0000874: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_nowassist_va");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Virtual Agent is installed."};
+return{status:"needs_attention",actualValue:"Not installed",finding:"Now Assist for Virtual Agent (sn_nowassist_va) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000874: ' + e.message };
+        }
+    },
+    CHK0001185: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_hub_flow");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=50)return{status:"ready",actualValue:c+" flows",finding:c+" Flow Designer flows found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" flows",finding:c+" flows found."};
+return{status:"needs_attention",actualValue:"0 flows",finding:"No Flow Designer flows found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001185: ' + e.message };
+        }
+    },
+    CHK0001190: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_app_eng_studio_project");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=5)return{status:"ready",actualValue:c+" projects",finding:c+" AES projects found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" projects",finding:c+" AES project(s) found."};
+return{status:"needs_attention",actualValue:"0 projects",finding:"No App Engine Studio projects found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001190: ' + e.message };
+        }
+    },
+    CHK0000870: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_now_creator");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Creator is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for Creator (sn_now_creator) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000870: ' + e.message };
+        }
+    },
+    CHK0001186: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_update_set");
+ga.addQuery("state","!=","ignore");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" update sets",finding:c+" update sets found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" update sets",finding:c+" update set(s) found."};
+return{status:"needs_attention",actualValue:"0 update sets",finding:"No update sets found."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001186: ' + e.message };
+        }
+    },
+    CHK0001187: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_nowassist_va");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Virtual Agent is installed."};
+return{status:"needs_attention",actualValue:"Not installed",finding:"Now Assist for Virtual Agent (sn_nowassist_va) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001187: ' + e.message };
+        }
+    },
+    CHK0001191: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_now_assist_code");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist Code Generation is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist Code Generation (sn_now_assist_code) not installed."};
+})();
+        } catch(e) {
+            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001191: ' + e.message };
         }
     },
     type: 'AROPCheckLibrary_CREATOR'
@@ -166,13 +312,13 @@ return{status:"needs_attention",actualValue:"0 developers",finding:"No users wit
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-29 06:15:56</sys_created_on>
         <sys_id>3910a7cbcfc90bd88935fb251d851c7c</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>AROPCheckLibrary_CREATOR</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_3910a7cbcfc90bd88935fb251d851c7c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-10 06:41:21</sys_updated_on>
+        <sys_updated_on>2026-06-18 09:32:29</sys_updated_on>
     </sys_script_include>
 </record_update>
