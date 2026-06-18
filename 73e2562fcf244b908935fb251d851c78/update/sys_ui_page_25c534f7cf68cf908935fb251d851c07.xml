@@ -9,28 +9,39 @@
 
 <g:evaluate var="jvar_modules">
   var pMap = {
-    'ITSM':'x_snc_airop.run_itsm','ITOM':'x_snc_airop.run_itom',
-    'CMDB':'x_snc_airop.run_cmdb','HRSD':'x_snc_airop.run_hrsd',
-    'CSM':'x_snc_airop.run_csm','FIELD_SERVICE':'x_snc_airop.run_field_service',
-    'AIOPS':'x_snc_airop.module.AIOPS.enabled','GRC':'x_snc_airop.run_grc',
-    'SPM':'x_snc_airop.run_spm','PLATFORM':'x_snc_airop.run_platform',
-    'VIRTUAL_AGENT':'x_snc_airop.run_virtual_agent',
-    'DEX':'x_snc_airop.module.DEX.enabled',
-    'SECOPS':'x_snc_airop.module.SECOPS.enabled',
-    'HS':'x_snc_airop.module.HS.enabled',
-    'OTSM':'x_snc_airop.module.OTSM.enabled',
-    'CREATOR':'x_snc_airop.module.CREATOR.enabled',
-    'SPO':'x_snc_airop.module.SPO.enabled',
-    'TPRM':'x_snc_airop.module.TPRM.enabled',
-    'LSD':'x_snc_airop.module.LSD.enabled',
-    'WSD':'x_snc_airop.module.WSD.enabled',
-    'HAM':'x_snc_airop.module.HAM.enabled',
-    'SAM':'x_snc_airop.module.SAM.enabled'
+    'ITSM': 'x_snc_airop.module.ITSM.enabled',
+    'ITOM': 'x_snc_airop.module.ITOM.enabled',
+    'CMDB': 'x_snc_airop.module.CMDB.enabled',
+    'HRSD': 'x_snc_airop.module.HRSD.enabled',
+    'CSM': 'x_snc_airop.module.CSM.enabled',
+    'FIELD_SERVICE': 'x_snc_airop.module.FIELD_SERVICE.enabled',
+    'AIOPS': 'x_snc_airop.module.AIOPS.enabled',
+    'GRC': 'x_snc_airop.module.GRC.enabled',
+    'SPM': 'x_snc_airop.module.SPM.enabled',
+    'PLATFORM': 'x_snc_airop.module.PLATFORM.enabled',
+    'VIRTUAL_AGENT': 'x_snc_airop.module.VIRTUAL_AGENT.enabled',
+    'DEX': 'x_snc_airop.module.DEX.enabled',
+    'SECOPS': 'x_snc_airop.module.SECOPS.enabled',
+    'HS': 'x_snc_airop.module.HS.enabled',
+    'OTSM': 'x_snc_airop.module.OTSM.enabled',
+    'CREATOR': 'x_snc_airop.module.CREATOR.enabled',
+    'SPO': 'x_snc_airop.module.SPO.enabled',
+    'TPRM': 'x_snc_airop.module.TPRM.enabled',
+    'LSD': 'x_snc_airop.module.LSD.enabled',
+    'WSD': 'x_snc_airop.module.WSD.enabled',
+    'HAM': 'x_snc_airop.module.HAM.enabled',
+    'SAM': 'x_snc_airop.module.SAM.enabled'
   };
+  
   var ena = [];
   for (var mk in pMap) {
-    if (gs.getProperty(pMap[mk], 'false') === 'true') ena.push(mk);
+    var propName = pMap[mk];
+    var propVal = gs.getProperty(propName, 'false');
+    if (propVal === 'true') {
+      ena.push(mk);
+    }
   }
+  
   jvar_modules = ena.length > 0 ? ena.join(', ') : 'No modules enabled';
 </g:evaluate>
 
@@ -69,6 +80,53 @@
   .airop-links { margin-top: 24px; font-size: 13px; border-top: 1px solid #eee; padding-top: 16px; }
   .airop-links a { color: #032D42; margin-right: 20px; text-decoration: none; }
   .airop-links a:hover { text-decoration: underline; }
+  
+  /* Loading overlay styles */
+  .airop-loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .airop-loading-overlay.active {
+    display: flex;
+  }
+  
+  .airop-loading-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .airop-loading-spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 20px;
+    border: 4px solid #e0e0e0;
+    border-top: 4px solid #63DF4E;
+    border-radius: 50%;
+    animation: airop-spin 1s linear infinite;
+  }
+  
+  @keyframes airop-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .airop-loading-text {
+    font-size: 16px;
+    color: #032D42;
+    font-weight: 600;
+  }
 </style>
 
 <div class="airop-container">
@@ -96,14 +154,31 @@
   </div>
 </div>
 
+<!-- Loading Overlay -->
+<div id="airop_loading_overlay" class="airop-loading-overlay">
+  <div class="airop-loading-box">
+    <div class="airop-loading-spinner"></div>
+    <div class="airop-loading-text">Assessment running...</div>
+    <div style="font-size: 12px; color: #666; margin-top: 12px;">This may take several minutes</div>
+  </div>
+</div>
+
 <script type="text/javascript">
 function runAssessment() {
     if (!confirm("Start AI Readiness Assessment?\n\nThis will scan the enabled modules.\n\nThe assessment may take several minutes.")) return;
+    
+    // Show loading overlay
+    var overlay = document.getElementById('airop_loading_overlay');
+    if (overlay) overlay.classList.add('active');
+    
     var btn = document.querySelector(".airop-btn");
-    if (btn) { btn.disabled = true; btn.innerHTML = "Starting..."; }
+    if (btn) { btn.disabled = true; }
+    
     setMsg("info", "Submitting assessment request...");
+    
     var authEl = document.getElementById("airop_auth");
     var auth = authEl ? authEl.value : "";
+    
     fetch(window.location.protocol + "//" + window.location.host + "/api/x_snc_airop/assessment/trigger", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": "Basic " + auth },
@@ -113,20 +188,27 @@ function runAssessment() {
     .then(function(data) {
         var result = data.result || data;
         if (result.status === "OK") {
-            window.location.href = "x_snc_airop_assessment_run.do?sys_id=" + result.run_id;
+            // Redirect with overlay still showing
+            setTimeout(function() {
+                window.location.href = "x_snc_airop_assessment_run.do?sys_id=" + result.run_id;
+            }, 500);
         } else if (result.status === "RUNNING") {
+            if (overlay) overlay.classList.remove('active');
             setMsg("warning", "&#9888; An assessment is already in progress: <strong>" + result.run_name + "</strong>. <a href='x_snc_airop_assessment_run.do?sys_id=" + result.run_id + "' style='color:inherit;font-weight:600;'>View running assessment &#8594;</a>");
-            if (btn) { btn.disabled = false; btn.innerHTML = "Run Assessment Now"; }
+            if (btn) btn.disabled = false;
         } else {
+            if (overlay) overlay.classList.remove('active');
             setMsg("error", "&#10005; " + (result.message || JSON.stringify(result)));
-            if (btn) { btn.disabled = false; btn.innerHTML = "Run Assessment Now"; }
+            if (btn) btn.disabled = false;
         }
     })
     .catch(function(err) {
+        if (overlay) overlay.classList.remove('active');
         setMsg("error", "&#10005; Request failed: " + err.message);
-        if (btn) { btn.disabled = false; btn.innerHTML = "Run Assessment Now"; }
+        if (btn) btn.disabled = false;
     });
 }
+
 function setMsg(type, message) {
     var box = document.getElementById("airop_msg");
     if (!box) return;
@@ -139,6 +221,7 @@ function setMsg(type, message) {
     box.innerHTML = message;
 }
 </script>
+
 </j:jelly>]]></html>
         <name>run_assessment</name>
         <processing_script><![CDATA[(function() {
@@ -159,35 +242,34 @@ function setMsg(type, message) {
     }
 
     // Check at least one module is enabled
-    var propMap = {
-        "ITSM":            "x_snc_airop.run_itsm",
-        "ITOM":            "x_snc_airop.run_itom",
-        "CMDB":            "x_snc_airop.run_cmdb",
-        "HRSD":            "x_snc_airop.run_hrsd",
-        "CSM":             "x_snc_airop.run_csm",
-        "FIELD_SERVICE":   "x_snc_airop.run_field_service",
-        "AIOPS":           "x_snc_airop.module.AIOPS.enabled",
-        "GRC":             "x_snc_airop.run_grc",
-        "SPM":             "x_snc_airop.run_spm",
-        "PLATFORM":        "x_snc_airop.run_platform",
-        "VIRTUAL_AGENT":   "x_snc_airop.run_virtual_agent",
-        "DEX":             "x_snc_airop.module.DEX.enabled",
-        "SECOPS":          "x_snc_airop.module.SECOPS.enabled",
-        "HS":          "x_snc_airop.module.HS.enabled",
-        "OTSM":          "x_snc_airop.module.OTSM.enabled",
-        "CREATOR":          "x_snc_airop.module.CREATOR.enabled",
-        "SPO":          "x_snc_airop.module.SPO.enabled",
-        "TPRM":          "x_snc_airop.module.TPRM.enabled",
-        "LSD":          "x_snc_airop.module.LSD.enabled",
-        "WSD":          "x_snc_airop.module.WSD.enabled",
-        "HAM":          "x_snc_airop.module.HAM.enabled",
-        "SAM":          "x_snc_airop.module.SAM.enabled",
-        "DEX":             "x_snc_airop.module.DEX.enabled",
-        "SECOPS":          "x_snc_airop.module.SECOPS.enabled"
-    };
+    var pMap = {
+    'ITSM': 'x_snc_airop.module.ITSM.enabled',
+    'ITOM': 'x_snc_airop.module.ITOM.enabled',
+    'CMDB': 'x_snc_airop.module.CMDB.enabled',
+    'HRSD': 'x_snc_airop.module.HRSD.enabled',
+    'CSM': 'x_snc_airop.module.CSM.enabled',
+    'FIELD_SERVICE': 'x_snc_airop.module.FIELD_SERVICE.enabled',
+    'AIOPS': 'x_snc_airop.module.AIOPS.enabled',
+    'GRC': 'x_snc_airop.module.GRC.enabled',
+    'SPM': 'x_snc_airop.module.SPM.enabled',
+    'PLATFORM': 'x_snc_airop.module.PLATFORM.enabled',
+    'VIRTUAL_AGENT': 'x_snc_airop.module.VIRTUAL_AGENT.enabled',
+    'DEX': 'x_snc_airop.module.DEX.enabled',
+    'SECOPS': 'x_snc_airop.module.SECOPS.enabled',
+    'HS': 'x_snc_airop.module.HS.enabled',
+    'OTSM': 'x_snc_airop.module.OTSM.enabled',
+    'CREATOR': 'x_snc_airop.module.CREATOR.enabled',
+    'SPO': 'x_snc_airop.module.SPO.enabled',
+    'TPRM': 'x_snc_airop.module.TPRM.enabled',
+    'LSD': 'x_snc_airop.module.LSD.enabled',
+    'WSD': 'x_snc_airop.module.WSD.enabled',
+    'HAM': 'x_snc_airop.module.HAM.enabled',
+    'SAM': 'x_snc_airop.module.SAM.enabled'
+};
+
     var enabled = [];
-    for (var m in propMap) {
-        if (gs.getProperty(propMap[m], "false") === "true") enabled.push(m);
+    for (var m in pMap) {
+        if (gs.getProperty(pMap[m], "false") === "true") enabled.push(m);
     }
     if (enabled.length === 0) {
         gs.addErrorMessage("No modules are currently enabled. Please enable at least one module in Configuration before running an assessment.");
@@ -224,13 +306,13 @@ function setMsg(type, message) {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-06 05:24:29</sys_created_on>
         <sys_id>25c534f7cf68cf908935fb251d851c07</sys_id>
-        <sys_mod_count>34</sys_mod_count>
+        <sys_mod_count>47</sys_mod_count>
         <sys_name>run_assessment</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_ui_page_25c534f7cf68cf908935fb251d851c07</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-10 21:13:34</sys_updated_on>
+        <sys_updated_on>2026-06-18 07:45:21</sys_updated_on>
     </sys_ui_page>
 </record_update>

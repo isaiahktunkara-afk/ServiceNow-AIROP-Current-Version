@@ -21,14 +21,14 @@
         <query/>
         <report/>
         <require_confirmation>true</require_confirmation>
-        <roles>43d49623cfe44b908935fb251d851cd1</roles>
+        <roles>admin,x_snc_airop.admin</roles>
         <sys_class_name>sys_app_module</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-05 18:20:58</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a0ef5263cf208b908935fb251d851ce4</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>Script Execution Log</sys_name>
         <sys_overrides/>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
@@ -36,7 +36,7 @@
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_app_module_a0ef5263cf208b908935fb251d851ce4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-23 16:24:52</sys_updated_on>
+        <sys_updated_on>2026-06-17 23:19:20</sys_updated_on>
         <timeline_page/>
         <title>Script Execution Log</title>
         <uncancelable>false</uncancelable>

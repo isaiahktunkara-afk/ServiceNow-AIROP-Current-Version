@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="DELETE">
+        <category>general</category>
+        <client_script/>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_snc_airop_airop_settings_test.do</endpoint>
+        <html><![CDATA[<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+    
+    <div style="padding: 40px; text-align: center; font-family: Arial, sans-serif;">
+        <h1>Processing Script Test</h1>
+        <p>Click the button below and check System Logs for [TEST PS] entries</p>
+        
+        <!-- CHANGED: Standard HTML form replaced with g:ui_form -->
+        <g:ui_form>
+            <input type="hidden" name="test_action" value="test_now" />
+            
+            <button type="submit" style="background: #005aa3; color: white; border: none; padding: 15px 40px; border-radius: 4px; font-size: 16px; cursor: pointer;">
+                Click Me - Should Trigger Processing Script
+            </button>
+        </g:ui_form>
+        
+        <p style="margin-top: 40px; color: #666; font-size: 13px;">
+            After clicking, go to System Logs and search for: [TEST PS]
+        </p>
+    </div>
+
+</j:jelly>
+]]></html>
+        <name>airop_settings_test</name>
+        <processing_script><![CDATA[(function() {
+    gs.info('[TEST PS] ========== PROCESSING SCRIPT FIRED ==========');
+    
+    var test_action = request.getParameter("test_action");
+    gs.info('[TEST PS] test_action parameter value: ' + test_action);
+    
+    if (test_action != "test_now") {
+        gs.info('[TEST PS] test_action is not "test_now", exiting');
+        return;
+    }
+    
+    gs.info('[TEST PS] ========== TEST ACTION DETECTED ==========');
+    gs.info('[TEST PS] Setting test property...');
+    
+    gs.setProperty('x_snc_airop.test_processor_ran', 'true');
+    
+    gs.info('[TEST PS] Property set. Now logging user info...');
+    gs.info('[TEST PS] Current user: ' + gs.getUserName());
+    gs.info('[TEST PS] Current scope: ' + gs.getCurrentScope());
+    
+    gs.addInfoMessage('SUCCESS! Processing Script ran at ' + new Date());
+    
+    gs.info('[TEST PS] ========== PROCESSING SCRIPT COMPLETE ==========');
+    response.sendRedirect(request.getRequestURL());
+
+})();]]></processing_script>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 04:52:39</sys_created_on>
+        <sys_id>f29c0a2dcfa147d48935fb251d851cc3</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>airop_settings_test</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>sys_ui_page_f29c0a2dcfa147d48935fb251d851cc3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 04:55:16</sys_updated_on>
+    </sys_ui_page>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>sys_ui_page_f29c0a2dcfa147d48935fb251d851cc3</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ui_page"&gt;&lt;sys_ui_page action="INSERT_OR_UPDATE"&gt;&lt;category&gt;general&lt;/category&gt;&lt;client_script/&gt;&lt;description/&gt;&lt;direct&gt;false&lt;/direct&gt;&lt;endpoint&gt;x_snc_airop_airop_settings_test.do&lt;/endpoint&gt;&lt;html&gt;&lt;![CDATA[&lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null"&gt;
+    
+    &lt;div style="padding: 40px; text-align: center; font-family: Arial, sans-serif;"&gt;
+        &lt;h1&gt;Processing Script Test&lt;/h1&gt;
+        &lt;p&gt;Click the button below and check System Logs for [TEST PS] entries&lt;/p&gt;
+        
+        &lt;!-- CHANGED: Standard HTML form replaced with g:ui_form --&gt;
+        &lt;g:ui_form&gt;
+            &lt;input type="hidden" name="test_action" value="test_now" /&gt;
+            
+            &lt;button type="submit" style="background: #005aa3; color: white; border: none; padding: 15px 40px; border-radius: 4px; font-size: 16px; cursor: pointer;"&gt;
+                Click Me - Should Trigger Processing Script
+            &lt;/button&gt;
+        &lt;/g:ui_form&gt;
+        
+        &lt;p style="margin-top: 40px; color: #666; font-size: 13px;"&gt;
+            After clicking, go to System Logs and search for: [TEST PS]
+        &lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;/j:jelly&gt;
+]]&gt;&lt;/html&gt;&lt;name&gt;airop_settings_test&lt;/name&gt;&lt;processing_script&gt;&lt;![CDATA[(function() {
+    gs.info('[TEST PS] ========== PROCESSING SCRIPT FIRED ==========');
+    
+    var test_action = request.getParameter("test_action");
+    gs.info('[TEST PS] test_action parameter value: ' + test_action);
+    
+    if (test_action != "test_now") {
+        gs.info('[TEST PS] test_action is not "test_now", exiting');
+        return;
+    }
+    
+    gs.info('[TEST PS] ========== TEST ACTION DETECTED ==========');
+    gs.info('[TEST PS] Setting test property...');
+    
+    gs.setProperty('x_snc_airop.test_processor_ran', 'true');
+    
+    gs.info('[TEST PS] Property set. Now logging user info...');
+    gs.info('[TEST PS] Current user: ' + gs.getUserName());
+    gs.info('[TEST PS] Current scope: ' + gs.getCurrentScope());
+    
+    gs.addInfoMessage('SUCCESS! Processing Script ran at ' + new Date());
+    
+    gs.info('[TEST PS] ========== PROCESSING SCRIPT COMPLETE ==========');
+    response.sendRedirect(request.getRequestURL());
+
+})();]]&gt;&lt;/processing_script&gt;&lt;sys_class_name&gt;sys_ui_page&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 04:52:39&lt;/sys_created_on&gt;&lt;sys_id&gt;f29c0a2dcfa147d48935fb251d851cc3&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;airop_settings_test&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ui_page_f29c0a2dcfa147d48935fb251d851cc3&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 04:55:16&lt;/sys_updated_on&gt;&lt;/sys_ui_page&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1342428378</payload_hash>
+        <record_name>airop_settings_test</record_name>
+        <reverted_from/>
+        <source>9687d303cf550f108935fb251d851c93</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 04:55:16</sys_created_on>
+        <sys_id>676d0629cfe147d48935fb251d851caf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ed9155df50000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 04:55:16</sys_updated_on>
+        <type>UI Page</type>
+        <update_guid>ef6d0221fee147d41713bb5c724044de</update_guid>
+        <update_guid_history>ef6d0221fee147d41713bb5c724044de:-1342428378,55dccaed4ea147d4f7b9399c873eaee1:1824829492</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 05:03:08</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_page">sys_ui_page</sys_db_object>
+        <sys_id>36a45f6437a9444bad44726b2c34bb71</sys_id>
+        <sys_metadata>f29c0a2dcfa147d48935fb251d851cc3</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>airop_settings_test</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>sys_ui_page_f29c0a2dcfa147d48935fb251d851cc3</sys_update_name>
+        <sys_update_version display_value="sys_ui_page_f29c0a2dcfa147d48935fb251d851cc3">676d0629cfe147d48935fb251d851caf</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 05:03:08</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

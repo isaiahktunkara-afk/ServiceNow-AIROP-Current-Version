@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="DELETE">
+        <choices/>
+        <description>Enable ITOM module assessment</description>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_snc_airop.run_itom</name>
+        <read_roles/>
+        <suffix/>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-05 17:32:56</sys_created_on>
+        <sys_id>45e45a23cfe44b908935fb251d851cbd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_snc_airop.run_itom</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>sys_properties_45e45a23cfe44b908935fb251d851cbd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-05 17:32:56</sys_updated_on>
+        <type>string</type>
+        <value>true</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="DELETE" query="documentkey=45e45a23cfe44b908935fb251d851cbd"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>sys_properties_45e45a23cfe44b908935fb251d851cbd</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties"><sys_properties action="INSERT_OR_UPDATE"><choices/><description>Enable ITOM module assessment</description><ignore_cache>false</ignore_cache><is_private>false</is_private><name>x_snc_airop.run_itom</name><read_roles/><suffix/><sys_class_name>sys_properties</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-05-05 17:32:56</sys_created_on><sys_id>45e45a23cfe44b908935fb251d851cbd</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_snc_airop.run_itom</sys_name><sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package><sys_policy/><sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope><sys_update_name>sys_properties_45e45a23cfe44b908935fb251d851cbd</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-05-05 17:32:56</sys_updated_on><type>string</type><value>true</value><write_roles/></sys_properties><sys_translated_text action="delete_multiple" query="documentkey=45e45a23cfe44b908935fb251d851cbd"/></record_update>]]></payload>
+        <payload_hash>-1324488622</payload_hash>
+        <record_name>x_snc_airop.run_itom</record_name>
+        <reverted_from/>
+        <source>0ba6d0decf923210544cb7c51d851cc9</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-05 17:32:59</sys_created_on>
+        <sys_id>f9e4da23cfe44b908935fb251d851c44</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19df93342410000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-05 17:32:59</sys_updated_on>
+        <type>System Property</type>
+        <update_guid>b9e4da234be44b901afb5e74ad305b42</update_guid>
+        <update_guid_history>b9e4da234be44b901afb5e74ad305b42:-1324488622</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 02:45:06</sys_created_on>
+        <sys_db_object display_value="" name="sys_properties">sys_properties</sys_db_object>
+        <sys_id>0b80edf14d02491c8a2fcb2251b8c864</sys_id>
+        <sys_metadata>45e45a23cfe44b908935fb251d851cbd</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_snc_airop.run_itom</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>sys_properties_45e45a23cfe44b908935fb251d851cbd</sys_update_name>
+        <sys_update_version display_value="sys_properties_45e45a23cfe44b908935fb251d851cbd">f9e4da23cfe44b908935fb251d851c44</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 02:45:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
