@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[HR skills and competency data enables Now Assist to match HR case complexity to agent expertise. Without skills data, Now Assist cannot optimize agent assignment based on capability matching.]]></ai_justification>
+        <check_name>HR Skills and Competency Data</check_name>
+        <check_script><![CDATA[(function() {
+    var t = new GlideRecord("cmn_skill");
+    if (!t.isValid()) {
+        return { status: "value_blocker", actualValue: "Required table cmn_skill not found", finding: "Skills table (cmn_skill) is not available. Verify the Skills plugin is active." };
+    }
+    var ga = new GlideAggregate("cmn_skill");
+    ga.addQuery("active", true);
+    ga.addAggregate("COUNT");
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate("COUNT")) : 0;
+    var actualValue = count + " active skill definitions";
+    if (count >= 10) {
+        return { status: "ready", actualValue: actualValue, finding: count + " active skill definitions. Now Assist HRSD can perform competency-matched AI case assignment." };
+    } else if (count >= 3) {
+        return { status: "needs_attention", actualValue: actualValue, finding: "Only " + count + " active skill definitions (target: 10+). Now Assist HRSD skill-based AI assignment will have limited matching coverage." };
+    } else {
+        return { status: "value_blocker", actualValue: actualValue, finding: "Fewer than 3 active skill definitions. Now Assist HRSD AI case assignment defaults to simple routing without skills data — competency-matched assignment is unavailable." };
+    }
+})()]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>HRSD</module>
+        <number>CHK0002596</number>
+        <order>130</order>
+        <remediation_guidance>Populate HR agent skills and competency profiles via sn_hr_core_skill_list.do. Assign skills to HR service desk agents. Target: 10+ active skill definitions. Now Assist HRSD uses skill matching for AI-optimized case assignment.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:12:31</sys_created_on>
+        <sys_id>fde30131cf2d0fd48935fb251d851c6b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HR Skills and Competency Data</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_fde30131cf2d0fd48935fb251d851c6b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:12:31</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_fde30131cf2d0fd48935fb251d851c6b</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[HR skills and competency data enables Now Assist to match HR case complexity to agent expertise. Without skills data, Now Assist cannot optimize agent assignment based on capability matching.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;HR Skills and Competency Data&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function() {
+    var t = new GlideRecord("cmn_skill");
+    if (!t.isValid()) {
+        return { status: "value_blocker", actualValue: "Required table cmn_skill not found", finding: "Skills table (cmn_skill) is not available. Verify the Skills plugin is active." };
+    }
+    var ga = new GlideAggregate("cmn_skill");
+    ga.addQuery("active", true);
+    ga.addAggregate("COUNT");
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate("COUNT")) : 0;
+    var actualValue = count + " active skill definitions";
+    if (count &gt;= 10) {
+        return { status: "ready", actualValue: actualValue, finding: count + " active skill definitions. Now Assist HRSD can perform competency-matched AI case assignment." };
+    } else if (count &gt;= 3) {
+        return { status: "needs_attention", actualValue: actualValue, finding: "Only " + count + " active skill definitions (target: 10+). Now Assist HRSD skill-based AI assignment will have limited matching coverage." };
+    } else {
+        return { status: "value_blocker", actualValue: actualValue, finding: "Fewer than 3 active skill definitions. Now Assist HRSD AI case assignment defaults to simple routing without skills data — competency-matched assignment is unavailable." };
+    }
+})()]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;HRSD&lt;/module&gt;&lt;number&gt;CHK0002596&lt;/number&gt;&lt;order&gt;130&lt;/order&gt;&lt;remediation_guidance&gt;Populate HR agent skills and competency profiles via sn_hr_core_skill_list.do. Assign skills to HR service desk agents. Target: 10+ active skill definitions. Now Assist HRSD uses skill matching for AI-optimized case assignment.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:12:31&lt;/sys_created_on&gt;&lt;sys_id&gt;fde30131cf2d0fd48935fb251d851c6b&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;HR Skills and Competency Data&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_fde30131cf2d0fd48935fb251d851c6b&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:12:31&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1477157535</payload_hash>
+        <record_name>HR Skills and Competency Data</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>a0340d35cf2d0fd48935fb251d851c83</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>60340d35712d0fd469f885ddf7c50383</update_guid>
+        <update_guid_history>60340d35712d0fd469f885ddf7c50383:-1477157535</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="HR Skills and Competency Data">ac340d35cf2d0fd48935fb251d851c83</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:13:47</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>098b81af4d5b44fc8098dd6f076ed524</sys_id>
+        <sys_metadata>fde30131cf2d0fd48935fb251d851c6b</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HR Skills and Competency Data</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_fde30131cf2d0fd48935fb251d851c6b</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_fde30131cf2d0fd48935fb251d851c6b">a0340d35cf2d0fd48935fb251d851c83</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:13:47</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

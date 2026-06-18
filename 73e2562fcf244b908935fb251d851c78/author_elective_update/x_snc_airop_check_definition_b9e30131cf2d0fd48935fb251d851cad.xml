@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[The customer portal is the primary channel for Now Assist CSM AI Search and VA. Without it Now Assist cannot reach customers.]]></ai_justification>
+        <check_name>CSM Customer Portal Configuration</check_name>
+        <check_script><![CDATA[(function(checkDef, dateFilter) {
+    // Check for any active Service Portal — CSM portal naming varies by org
+    // Now Assist CSM AI Search and VA require an active portal to reach customers
+    var ga = new GlideAggregate('sp_portal');
+    ga.addQuery('active', true);
+    ga.addAggregate('COUNT');
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate('COUNT')) : 0;
+
+    var actualValue = count + ' active Service Portal(s) configured';
+
+    if (count >= 1) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: count + ' active portal(s) configured. Now Assist CSM AI Search and VA can be delivered to customers via the portal.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'No active customer portals configured. Now Assist CSM AI Search and VA cannot reach customers without an active Service Portal.'
+        };
+    }
+})]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>CSM</module>
+        <number>CHK0002611</number>
+        <order>80</order>
+        <remediation_guidance>Configure and activate a Customer Service Portal via sp_portal_list.do. Enable AI Search and VA on the portal. Test customer-facing Now Assist AI features end-to-end.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:12:31</sys_created_on>
+        <sys_id>b9e30131cf2d0fd48935fb251d851cad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CSM Customer Portal Configuration</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_b9e30131cf2d0fd48935fb251d851cad</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:12:31</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_b9e30131cf2d0fd48935fb251d851cad</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[The customer portal is the primary channel for Now Assist CSM AI Search and VA. Without it Now Assist cannot reach customers.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;CSM Customer Portal Configuration&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(checkDef, dateFilter) {
+    // Check for any active Service Portal — CSM portal naming varies by org
+    // Now Assist CSM AI Search and VA require an active portal to reach customers
+    var ga = new GlideAggregate('sp_portal');
+    ga.addQuery('active', true);
+    ga.addAggregate('COUNT');
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate('COUNT')) : 0;
+
+    var actualValue = count + ' active Service Portal(s) configured';
+
+    if (count &gt;= 1) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: count + ' active portal(s) configured. Now Assist CSM AI Search and VA can be delivered to customers via the portal.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'No active customer portals configured. Now Assist CSM AI Search and VA cannot reach customers without an active Service Portal.'
+        };
+    }
+})]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;CSM&lt;/module&gt;&lt;number&gt;CHK0002611&lt;/number&gt;&lt;order&gt;80&lt;/order&gt;&lt;remediation_guidance&gt;Configure and activate a Customer Service Portal via sp_portal_list.do. Enable AI Search and VA on the portal. Test customer-facing Now Assist AI features end-to-end.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:12:31&lt;/sys_created_on&gt;&lt;sys_id&gt;b9e30131cf2d0fd48935fb251d851cad&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;CSM Customer Portal Configuration&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_b9e30131cf2d0fd48935fb251d851cad&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:12:31&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-1361400253</payload_hash>
+        <record_name>CSM Customer Portal Configuration</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>e2248135cf2d0fd48935fb251d851c2f</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>a2248135ca2d0fd45ed6daa976cbb52f</update_guid>
+        <update_guid_history>a2248135ca2d0fd45ed6daa976cbb52f:-1361400253</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="CSM Customer Portal Configuration">ee248135cf2d0fd48935fb251d851c2f</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:13:39</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>073cdd31ad1142fba44234754e819409</sys_id>
+        <sys_metadata>b9e30131cf2d0fd48935fb251d851cad</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>CSM Customer Portal Configuration</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_b9e30131cf2d0fd48935fb251d851cad</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_b9e30131cf2d0fd48935fb251d851cad">e2248135cf2d0fd48935fb251d851c2f</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:13:39</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

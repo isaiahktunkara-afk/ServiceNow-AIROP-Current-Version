@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[The SPO UI Builder application provides the modern workspace interface required for Now Assist embedded experiences and AI Agent interactions in Strategic Portfolio Management. Without this app, AI-powered SPO features may not render correctly.]]></ai_justification>
+        <check_name>SPO UI Builder App Installed</check_name>
+        <check_script><![CDATA[(function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_spend_uib");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Shopping Hub is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Shopping Hub (sn_spend_uib) is not installed. SPO AI skills unavailable."};
+})()]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>SPO</module>
+        <number>CHK0003392</number>
+        <order/>
+        <remediation_guidance>Install Shopping Hub from the ServiceNow Store to enable Source-to-Pay operations.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:41:03</sys_created_on>
+        <sys_id>487a8539cf214fd48935fb251d851c02</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SPO UI Builder App Installed</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_487a8539cf214fd48935fb251d851c02</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:41:03</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_487a8539cf214fd48935fb251d851c02</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[The SPO UI Builder application provides the modern workspace interface required for Now Assist embedded experiences and AI Agent interactions in Strategic Portfolio Management. Without this app, AI-powered SPO features may not render correctly.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;SPO UI Builder App Installed&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_spend_uib");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Shopping Hub is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Shopping Hub (sn_spend_uib) is not installed. SPO AI skills unavailable."};
+})()]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;SPO&lt;/module&gt;&lt;number&gt;CHK0003392&lt;/number&gt;&lt;order/&gt;&lt;remediation_guidance&gt;Install Shopping Hub from the ServiceNow Store to enable Source-to-Pay operations.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:41:03&lt;/sys_created_on&gt;&lt;sys_id&gt;487a8539cf214fd48935fb251d851c02&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;SPO UI Builder App Installed&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_487a8539cf214fd48935fb251d851c02&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:41:03&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1795103916</payload_hash>
+        <record_name>SPO UI Builder App Installed</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>a93f05bdcfe14fd48935fb251d851cef</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>693f05bd3de14fd498d8b10295788bef</update_guid>
+        <update_guid_history>693f05bd3de14fd498d8b10295788bef:1795103916</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="SPO UI Builder App Installed">a53f05bdcfe14fd48935fb251d851cf0</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 19:01:55</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>06d95c7299d746108c6b7c12ea84ad10</sys_id>
+        <sys_metadata>487a8539cf214fd48935fb251d851c02</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SPO UI Builder App Installed</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_487a8539cf214fd48935fb251d851c02</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_487a8539cf214fd48935fb251d851c02">a93f05bdcfe14fd48935fb251d851cef</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 19:01:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

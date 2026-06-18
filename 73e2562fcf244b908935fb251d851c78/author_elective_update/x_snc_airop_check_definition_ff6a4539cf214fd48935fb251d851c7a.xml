@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[Now Assist for Health and Safety enables AI-powered case summarization, incident analysis, and resolution guidance for EHS workflows. Without this plugin, health and safety teams cannot leverage generative AI to accelerate incident resolution and compliance reporting.]]></ai_justification>
+        <check_name>Now Assist for Health &amp; Safety Installed</check_name>
+        <check_script><![CDATA[(function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_hs_gen_ai");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Health & Safety is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for Health & Safety (sn_hs_gen_ai) is not installed."};
+})()]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>HS</module>
+        <number>CHK0003358</number>
+        <order/>
+        <remediation_guidance>Install Now Assist for Health and Safety from the ServiceNow Store.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:41:03</sys_created_on>
+        <sys_id>ff6a4539cf214fd48935fb251d851c7a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Now Assist for Health &amp; Safety Installed</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_ff6a4539cf214fd48935fb251d851c7a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:41:03</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_ff6a4539cf214fd48935fb251d851c7a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[Now Assist for Health and Safety enables AI-powered case summarization, incident analysis, and resolution guidance for EHS workflows. Without this plugin, health and safety teams cannot leverage generative AI to accelerate incident resolution and compliance reporting.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;Now Assist for Health &amp;amp; Safety Installed&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_hs_gen_ai");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for Health &amp; Safety is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for Health &amp; Safety (sn_hs_gen_ai) is not installed."};
+})()]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;HS&lt;/module&gt;&lt;number&gt;CHK0003358&lt;/number&gt;&lt;order/&gt;&lt;remediation_guidance&gt;Install Now Assist for Health and Safety from the ServiceNow Store.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:41:03&lt;/sys_created_on&gt;&lt;sys_id&gt;ff6a4539cf214fd48935fb251d851c7a&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Now Assist for Health &amp;amp; Safety Installed&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_ff6a4539cf214fd48935fb251d851c7a&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:41:03&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1524593767</payload_hash>
+        <record_name>Now Assist for Health &amp; Safety Installed</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>e74fcdfdcfe14fd48935fb251d851c74</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>a74fcdfd1de14fd432709d341f5c8b74</update_guid>
+        <update_guid_history>a74fcdfd1de14fd432709d341f5c8b74:1524593767</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Now Assist for Health &amp; Safety Installed">ab4fcdfdcfe14fd48935fb251d851c81</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 19:02:19</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>69e23cfac53a40a8bebc8869bcf7fc40</sys_id>
+        <sys_metadata>ff6a4539cf214fd48935fb251d851c7a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Now Assist for Health &amp; Safety Installed</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_ff6a4539cf214fd48935fb251d851c7a</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_ff6a4539cf214fd48935fb251d851c7a">e74fcdfdcfe14fd48935fb251d851c74</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 19:02:19</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

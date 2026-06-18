@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[Application health data enables DEX AI to diagnose app-specific issues such as Zoom quality and Office 365 performance. Without application monitoring, DEX AI diagnosis is limited to OS-level signals only.]]></ai_justification>
+        <check_name>Application Health Monitoring</check_name>
+        <check_script><![CDATA[(function(checkDef, dateFilter) {
+    var cutoff = new GlideDateTime();
+    cutoff.addDaysUTC(-30);
+
+    var ga = new GlideAggregate('dex_ci_application_device_data');
+    ga.addQuery('sys_created_on', '>=', cutoff.getValue());
+    ga.addAggregate('COUNT');
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate('COUNT')) : 0;
+
+    var actualValue = count + ' application health records collected in last 30 days';
+
+    if (count >= 500) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: count + ' application health records in the last 30 days. DEX AI has sufficient application performance data for AI-driven diagnosis of app-related issues.'
+        };
+    } else if (count >= 50) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: 'Only ' + count + ' application health records in the last 30 days (target: 500+). Limited application monitoring coverage will reduce DEX AI diagnosis accuracy for app-related issues.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'Only ' + count + ' application health records in the last 30 days. DEX AI application diagnosis skills (Zoom, Office 365, browser performance) require active application health monitoring data.'
+        };
+    }
+})]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>DEX</module>
+        <number>CHK0002708</number>
+        <order/>
+        <remediation_guidance>Configure application monitoring in DEX for key business applications (Zoom, Office 365, browser-based apps). Application health data is required for DEX AI skills like Zoom call quality diagnosis and application performance analysis.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:12:32</sys_created_on>
+        <sys_id>4ee34131cf2d0fd48935fb251d851cc2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Application Health Monitoring</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_4ee34131cf2d0fd48935fb251d851cc2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:12:32</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_4ee34131cf2d0fd48935fb251d851cc2</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[Application health data enables DEX AI to diagnose app-specific issues such as Zoom quality and Office 365 performance. Without application monitoring, DEX AI diagnosis is limited to OS-level signals only.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;Application Health Monitoring&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(checkDef, dateFilter) {
+    var cutoff = new GlideDateTime();
+    cutoff.addDaysUTC(-30);
+
+    var ga = new GlideAggregate('dex_ci_application_device_data');
+    ga.addQuery('sys_created_on', '&gt;=', cutoff.getValue());
+    ga.addAggregate('COUNT');
+    ga.query();
+    var count = ga.next() ? parseInt(ga.getAggregate('COUNT')) : 0;
+
+    var actualValue = count + ' application health records collected in last 30 days';
+
+    if (count &gt;= 500) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: count + ' application health records in the last 30 days. DEX AI has sufficient application performance data for AI-driven diagnosis of app-related issues.'
+        };
+    } else if (count &gt;= 50) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: 'Only ' + count + ' application health records in the last 30 days (target: 500+). Limited application monitoring coverage will reduce DEX AI diagnosis accuracy for app-related issues.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'Only ' + count + ' application health records in the last 30 days. DEX AI application diagnosis skills (Zoom, Office 365, browser performance) require active application health monitoring data.'
+        };
+    }
+})]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;DEX&lt;/module&gt;&lt;number&gt;CHK0002708&lt;/number&gt;&lt;order/&gt;&lt;remediation_guidance&gt;Configure application monitoring in DEX for key business applications (Zoom, Office 365, browser-based apps). Application health data is required for DEX AI skills like Zoom call quality diagnosis and application performance analysis.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:12:32&lt;/sys_created_on&gt;&lt;sys_id&gt;4ee34131cf2d0fd48935fb251d851cc2&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Application Health Monitoring&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_4ee34131cf2d0fd48935fb251d851cc2&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:12:32&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>800257018</payload_hash>
+        <record_name>Application Health Monitoring</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>5b1481f1cf2d0fd48935fb251d851c6d</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>1b1481f1a42d0fd49f980701b31a116d</update_guid>
+        <update_guid_history>1b1481f1a42d0fd49f980701b31a116d:800257018</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Application Health Monitoring">571481f1cf2d0fd48935fb251d851c6e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:13:26</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>19ac31e7e0a244f8840a348674b6d910</sys_id>
+        <sys_metadata>4ee34131cf2d0fd48935fb251d851cc2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Application Health Monitoring</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_4ee34131cf2d0fd48935fb251d851cc2</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_4ee34131cf2d0fd48935fb251d851cc2">5b1481f1cf2d0fd48935fb251d851c6d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:13:26</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

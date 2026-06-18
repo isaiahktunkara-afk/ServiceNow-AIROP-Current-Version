@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[Metric rules define the thresholds that trigger DEX AI proactive investigation workflows. Without configured rules, DEX AI only reacts to manually created incidents, eliminating the proactive value proposition of DEX AI.]]></ai_justification>
+        <check_name>KB Article AI Content Suitability</check_name>
+        <check_script><![CDATA[(function(checkDef, dateFilter) {
+    var gaTables = new GlideAggregate('kb_knowledge');
+    gaTables.addQuery('workflow_state', 'published');
+    gaTables.addQuery('active', true);
+    gaTables.addQuery('text', 'CONTAINS', '<table');
+    gaTables.addAggregate('COUNT');
+    gaTables.query();
+    var tables = gaTables.next() ? parseInt(gaTables.getAggregate('COUNT')) : 0;
+
+    var gaImgs = new GlideAggregate('kb_knowledge');
+    gaImgs.addQuery('workflow_state', 'published');
+    gaImgs.addQuery('active', true);
+    gaImgs.addQuery('text', 'CONTAINS', '<img');
+    gaImgs.addAggregate('COUNT');
+    gaImgs.query();
+    var imgs = gaImgs.next() ? parseInt(gaImgs.getAggregate('COUNT')) : 0;
+
+    var total = tables + imgs;
+    var actualValue = 'Articles with HTML tables: ' + tables + ' | Articles with images: ' + imgs + ' | Total AI suitability issues: ' + total;
+
+    if (total === 0) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: 'No AI suitability issues found. KB articles are structured for clean Now Assist AI summarization without HTML tables or images.'
+        };
+    } else if (total < 100) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: total + ' articles have AI suitability issues (HTML tables: ' + tables + ', images: ' + imgs + '). Now Assist flattens HTML tables and ignores images — convert to prose for better AI summarization quality.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: total + ' articles have AI suitability issues. High volume of table-heavy and image-dependent KB content will significantly degrade Now Assist AI summarization quality across the knowledge base.'
+        };
+    }
+})]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>ITSM</module>
+        <number>CHK0003140</number>
+        <order>90</order>
+        <remediation_guidance>Convert HTML tables to structured prose or bulleted lists. Add descriptive alt text to all images. Now Assist AI summarization flattens HTML tables and ignores images without alt text — plain text content produces significantly better AI summaries.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:41:01</sys_created_on>
+        <sys_id>af6a8139cf214fd48935fb251d851cf8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>KB Article AI Content Suitability</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_af6a8139cf214fd48935fb251d851cf8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:41:01</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_af6a8139cf214fd48935fb251d851cf8</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[Metric rules define the thresholds that trigger DEX AI proactive investigation workflows. Without configured rules, DEX AI only reacts to manually created incidents, eliminating the proactive value proposition of DEX AI.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;KB Article AI Content Suitability&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(checkDef, dateFilter) {
+    var gaTables = new GlideAggregate('kb_knowledge');
+    gaTables.addQuery('workflow_state', 'published');
+    gaTables.addQuery('active', true);
+    gaTables.addQuery('text', 'CONTAINS', '&lt;table');
+    gaTables.addAggregate('COUNT');
+    gaTables.query();
+    var tables = gaTables.next() ? parseInt(gaTables.getAggregate('COUNT')) : 0;
+
+    var gaImgs = new GlideAggregate('kb_knowledge');
+    gaImgs.addQuery('workflow_state', 'published');
+    gaImgs.addQuery('active', true);
+    gaImgs.addQuery('text', 'CONTAINS', '&lt;img');
+    gaImgs.addAggregate('COUNT');
+    gaImgs.query();
+    var imgs = gaImgs.next() ? parseInt(gaImgs.getAggregate('COUNT')) : 0;
+
+    var total = tables + imgs;
+    var actualValue = 'Articles with HTML tables: ' + tables + ' | Articles with images: ' + imgs + ' | Total AI suitability issues: ' + total;
+
+    if (total === 0) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: 'No AI suitability issues found. KB articles are structured for clean Now Assist AI summarization without HTML tables or images.'
+        };
+    } else if (total &lt; 100) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: total + ' articles have AI suitability issues (HTML tables: ' + tables + ', images: ' + imgs + '). Now Assist flattens HTML tables and ignores images — convert to prose for better AI summarization quality.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: total + ' articles have AI suitability issues. High volume of table-heavy and image-dependent KB content will significantly degrade Now Assist AI summarization quality across the knowledge base.'
+        };
+    }
+})]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;ITSM&lt;/module&gt;&lt;number&gt;CHK0003140&lt;/number&gt;&lt;order&gt;90&lt;/order&gt;&lt;remediation_guidance&gt;Convert HTML tables to structured prose or bulleted lists. Add descriptive alt text to all images. Now Assist AI summarization flattens HTML tables and ignores images without alt text — plain text content produces significantly better AI summaries.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:41:01&lt;/sys_created_on&gt;&lt;sys_id&gt;af6a8139cf214fd48935fb251d851cf8&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;KB Article AI Content Suitability&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_af6a8139cf214fd48935fb251d851cf8&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:41:01&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>206566398</payload_hash>
+        <record_name>KB Article AI Content Suitability</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>e84f81fdcfe14fd48935fb251d851c69</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>a84f81fd71e14fd4362a368771720369</update_guid>
+        <update_guid_history>a84f81fd71e14fd4362a368771720369:206566398</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="KB Article AI Content Suitability">e44f81fdcfe14fd48935fb251d851c6a</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 19:02:07</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>0532552859b94a708dc481d7b9a46d90</sys_id>
+        <sys_metadata>af6a8139cf214fd48935fb251d851cf8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>KB Article AI Content Suitability</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_af6a8139cf214fd48935fb251d851cf8</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_af6a8139cf214fd48935fb251d851cf8">e84f81fdcfe14fd48935fb251d851c69</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 19:02:07</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

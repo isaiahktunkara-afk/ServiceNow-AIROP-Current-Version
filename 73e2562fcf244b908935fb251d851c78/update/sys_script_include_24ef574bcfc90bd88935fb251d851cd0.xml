@@ -14,21 +14,134 @@ AROPCheckLibrary_TPRM.prototype = {
     initialize: function() {},
     _count: function(table, query) { var gr = new GlideRecord(table); if (query) gr.addEncodedQuery(query); gr.query(); return gr.getRowCount(); },
     _pct: function(num, den) { return den > 0 ? Math.round((num/den)*100) : 0; },
-    CHK0000895: function() {
+    CHK0003711: function() {
         try {
             return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_task");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=20)return{status:"ready",actualValue:c+" tasks",finding:c+" risk tasks found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" tasks",finding:c+" risk tasks found."};
-return{status:"value_blocker",actualValue:"0 tasks",finding:"No risk tasks found."};
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_vdr_risk_asmt");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"TPRM is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Third-party Risk Management (sn_vdr_risk_asmt) is not installed. All TPRM AI checks cannot be evaluated."};
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000895: ' + e.message };
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003711: ' + e.message };
         }
     },
-    CHK0000893: function() {
+    CHK0003715: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_vdr_risk_asmt_security_score");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" scores",finding:c+" risk intelligence scores found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" scores",finding:c+" scores found."};
+return{status:"needs_attention",actualValue:"0 scores",finding:"No risk intelligence scores found. Consider integrating a risk intelligence provider."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003715: ' + e.message };
+        }
+    },
+    CHK0003710: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_vdr_risk_asmt_issue_generation_rule");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=3)return{status:"ready",actualValue:c+" rules",finding:c+" issue generation rules configured."};
+if(c>0)return{status:"needs_attention",actualValue:c+" rules",finding:c+" rule(s) found."};
+return{status:"value_blocker",actualValue:"0 rules",finding:"No issue generation rules configured."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003710: ' + e.message };
+        }
+    },
+    CHK0003712: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_vdr_risk_asmt_vendor_engagement");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=50)return{status:"ready",actualValue:c+" engagements",finding:c+" vendor engagements found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" engagements",finding:c+" vendor engagements found."};
+return{status:"value_blocker",actualValue:"0 engagements",finding:"No vendor engagements found."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003712: ' + e.message };
+        }
+    },
+    CHK0003707: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_vdr_risk_asmt_template");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=3)return{status:"ready",actualValue:c+" templates",finding:c+" assessment templates configured."};
+if(c>0)return{status:"needs_attention",actualValue:c+" templates",finding:c+" template(s) found."};
+return{status:"value_blocker",actualValue:"0 templates",finding:"No assessment templates configured."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003707: ' + e.message };
+        }
+    },
+    CHK0003716: function() {
+        try {
+            return (function(){
+var sa=new GlideRecord("sys_store_app");
+sa.addQuery("scope","sn_tprm_genai");
+sa.setLimit(1);sa.query();
+if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for TPRM is installed."};
+return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for TPRM (sn_tprm_gen_ai) is not installed."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003716: ' + e.message };
+        }
+    },
+    CHK0003713: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sn_vdr_risk_asmt_assessment");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=100)return{status:"ready",actualValue:c+" assessments",finding:c+" assessments found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" assessments",finding:c+" assessments found."};
+return{status:"value_blocker",actualValue:"0 assessments",finding:"No assessments found."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003713: ' + e.message };
+        }
+    },
+    CHK0003708: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("sys_user_group");
+ga.addQuery("name","CONTAINS","risk");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=2)return{status:"ready",actualValue:c+" groups",finding:c+" risk assignment groups found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" group",finding:c+" risk group found."};
+return{status:"value_blocker",actualValue:"0 groups",finding:"No risk assignment groups found."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003708: ' + e.message };
+        }
+    },
+    CHK0003717: function() {
+        try {
+            return (function(){
+var ga=new GlideAggregate("kb_knowledge");
+ga.addQuery("workflow_state","published");
+ga.addQuery("short_description","CONTAINS","vendor");
+ga.addAggregate("COUNT");ga.query();
+var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
+if(c>=10)return{status:"ready",actualValue:c+" articles",finding:c+" vendor KB articles found."};
+if(c>0)return{status:"needs_attention",actualValue:c+" articles",finding:c+" vendor KB articles found."};
+return{status:"value_blocker",actualValue:"0 articles",finding:"No vendor KB articles found."};
+})();
+        } catch(e) {
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003717: ' + e.message };
+        }
+    },
+    CHK0003714: function() {
         try {
             return (function(){
 var ga=new GlideAggregate("sn_vdr_risk_asmt_issue");
@@ -43,282 +156,10 @@ if(c>0)return{status:"needs_attention",actualValue:c+"/"+total+" with descriptio
 return{status:"value_blocker",actualValue:"0 with descriptions",finding:"No risk issues with descriptions found."};
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000893: ' + e.message };
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003714: ' + e.message };
         }
     },
-    CHK0000891: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_template");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=3)return{status:"ready",actualValue:c+" templates",finding:c+" assessment templates configured."};
-if(c>0)return{status:"needs_attention",actualValue:c+" templates",finding:c+" template(s) found."};
-return{status:"value_blocker",actualValue:"0 templates",finding:"No assessment templates configured."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000891: ' + e.message };
-        }
-    },
-    CHK0000897: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_vdr_risk_asmt");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"TPRM is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Third-party Risk Management (sn_vdr_risk_asmt) is not installed. All TPRM AI checks cannot be evaluated."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000897: ' + e.message };
-        }
-    },
-    CHK0001210: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_vdr_risk_asmt");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"TPRM is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Third-party Risk Management (sn_vdr_risk_asmt) is not installed. All TPRM AI checks cannot be evaluated."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001210: ' + e.message };
-        }
-    },
-    CHK0001205: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_issue_generation_rule");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=3)return{status:"ready",actualValue:c+" rules",finding:c+" issue generation rules configured."};
-if(c>0)return{status:"needs_attention",actualValue:c+" rules",finding:c+" rule(s) found."};
-return{status:"value_blocker",actualValue:"0 rules",finding:"No issue generation rules configured."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001205: ' + e.message };
-        }
-    },
-    CHK0001209: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_vendor_engagement");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=50)return{status:"ready",actualValue:c+" engagements",finding:c+" vendor engagements found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" engagements",finding:c+" vendor engagements found."};
-return{status:"value_blocker",actualValue:"0 engagements",finding:"No vendor engagements found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001209: ' + e.message };
-        }
-    },
-    CHK0000900: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sys_user_group");
-ga.addQuery("name","CONTAINS","risk");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=2)return{status:"ready",actualValue:c+" groups",finding:c+" risk assignment groups found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" group",finding:c+" risk group found."};
-return{status:"value_blocker",actualValue:"0 groups",finding:"No risk assignment groups found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000900: ' + e.message };
-        }
-    },
-    CHK0001211: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_assessment");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=100)return{status:"ready",actualValue:c+" assessments",finding:c+" assessments found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" assessments",finding:c+" assessments found."};
-return{status:"value_blocker",actualValue:"0 assessments",finding:"No assessments found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001211: ' + e.message };
-        }
-    },
-    CHK0001206: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_issue");
-ga.addQuery("description","!=","");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-var ga2=new GlideAggregate("sn_vdr_risk_asmt_issue");
-ga2.addAggregate("COUNT");ga2.query();
-var total=ga2.next()?parseInt(ga2.getAggregate("COUNT")):0;
-if(c>=20)return{status:"ready",actualValue:c+"/"+total+" with descriptions",finding:c+" risk issues have descriptions."};
-if(c>0)return{status:"needs_attention",actualValue:c+"/"+total+" with descriptions",finding:c+" of "+total+" issues have descriptions."};
-return{status:"value_blocker",actualValue:"0 with descriptions",finding:"No risk issues with descriptions found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001206: ' + e.message };
-        }
-    },
-    CHK0000894: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("kb_knowledge");
-ga.addQuery("workflow_state","published");
-ga.addQuery("short_description","CONTAINS","vendor");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" articles",finding:c+" vendor KB articles found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" articles",finding:c+" vendor KB articles found."};
-return{status:"value_blocker",actualValue:"0 articles",finding:"No vendor KB articles found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000894: ' + e.message };
-        }
-    },
-    CHK0000892: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_issue_generation_rule");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=3)return{status:"ready",actualValue:c+" rules",finding:c+" issue generation rules configured."};
-if(c>0)return{status:"needs_attention",actualValue:c+" rules",finding:c+" rule(s) found."};
-return{status:"value_blocker",actualValue:"0 rules",finding:"No issue generation rules configured."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000892: ' + e.message };
-        }
-    },
-    CHK0000890: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_security_score");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" scores",finding:c+" risk intelligence scores found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" scores",finding:c+" scores found."};
-return{status:"needs_attention",actualValue:"0 scores",finding:"No risk intelligence scores found. Consider integrating a risk intelligence provider."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000890: ' + e.message };
-        }
-    },
-    CHK0000898: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_assessment");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=100)return{status:"ready",actualValue:c+" assessments",finding:c+" assessments found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" assessments",finding:c+" assessments found."};
-return{status:"value_blocker",actualValue:"0 assessments",finding:"No assessments found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000898: ' + e.message };
-        }
-    },
-    CHK0000896: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_vendor_engagement");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=50)return{status:"ready",actualValue:c+" engagements",finding:c+" vendor engagements found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" engagements",finding:c+" vendor engagements found."};
-return{status:"value_blocker",actualValue:"0 engagements",finding:"No vendor engagements found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000896: ' + e.message };
-        }
-    },
-    CHK0001203: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_security_score");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" scores",finding:c+" risk intelligence scores found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" scores",finding:c+" scores found."};
-return{status:"needs_attention",actualValue:"0 scores",finding:"No risk intelligence scores found. Consider integrating a risk intelligence provider."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001203: ' + e.message };
-        }
-    },
-    CHK0001212: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_tprm_genai");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for TPRM is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for TPRM (sn_tprm_gen_ai) is not installed."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001212: ' + e.message };
-        }
-    },
-    CHK0001207: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("kb_knowledge");
-ga.addQuery("workflow_state","published");
-ga.addQuery("short_description","CONTAINS","vendor");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=10)return{status:"ready",actualValue:c+" articles",finding:c+" vendor KB articles found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" articles",finding:c+" vendor KB articles found."};
-return{status:"value_blocker",actualValue:"0 articles",finding:"No vendor KB articles found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001207: ' + e.message };
-        }
-    },
-    CHK0000899: function() {
-        try {
-            return (function(){
-var sa=new GlideRecord("sys_store_app");
-sa.addQuery("scope","sn_tprm_genai");
-sa.setLimit(1);sa.query();
-if(sa.next())return{status:"ready",actualValue:"v"+sa.getValue("version"),finding:"Now Assist for TPRM is installed."};
-return{status:"value_blocker",actualValue:"Not installed",finding:"Now Assist for TPRM (sn_tprm_gen_ai) is not installed."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0000899: ' + e.message };
-        }
-    },
-    CHK0001204: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sn_vdr_risk_asmt_template");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=3)return{status:"ready",actualValue:c+" templates",finding:c+" assessment templates configured."};
-if(c>0)return{status:"needs_attention",actualValue:c+" templates",finding:c+" template(s) found."};
-return{status:"value_blocker",actualValue:"0 templates",finding:"No assessment templates configured."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001204: ' + e.message };
-        }
-    },
-    CHK0001213: function() {
-        try {
-            return (function(){
-var ga=new GlideAggregate("sys_user_group");
-ga.addQuery("name","CONTAINS","risk");
-ga.addAggregate("COUNT");ga.query();
-var c=ga.next()?parseInt(ga.getAggregate("COUNT")):0;
-if(c>=2)return{status:"ready",actualValue:c+" groups",finding:c+" risk assignment groups found."};
-if(c>0)return{status:"needs_attention",actualValue:c+" group",finding:c+" risk group found."};
-return{status:"value_blocker",actualValue:"0 groups",finding:"No risk assignment groups found."};
-})();
-        } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001213: ' + e.message };
-        }
-    },
-    CHK0001208: function() {
+    CHK0003709: function() {
         try {
             return (function(){
 var ga=new GlideAggregate("sn_vdr_risk_asmt_task");
@@ -329,7 +170,7 @@ if(c>0)return{status:"needs_attention",actualValue:c+" tasks",finding:c+" risk t
 return{status:"value_blocker",actualValue:"0 tasks",finding:"No risk tasks found."};
 })();
         } catch(e) {
-            return { status: 'needs_validation', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0001208: ' + e.message };
+            return { status: 'verification_needed', actualValue: 'Script error: ' + e.message, finding: 'Error in CHK0003709: ' + e.message };
         }
     },
     type: 'AROPCheckLibrary_TPRM'
@@ -338,13 +179,13 @@ return{status:"value_blocker",actualValue:"0 tasks",finding:"No risk tasks found
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-29 06:15:01</sys_created_on>
         <sys_id>24ef574bcfc90bd88935fb251d851cd0</sys_id>
-        <sys_mod_count>16</sys_mod_count>
+        <sys_mod_count>25</sys_mod_count>
         <sys_name>AROPCheckLibrary_TPRM</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_24ef574bcfc90bd88935fb251d851cd0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-18 09:32:29</sys_updated_on>
+        <sys_updated_on>2026-06-18 19:16:04</sys_updated_on>
     </sys_script_include>
 </record_update>

@@ -74,7 +74,7 @@ AROPUtils.prototype = {
                 total++;
                 if (status === 'ready')                points += 1.0;
                 else if (status === 'needs_attention') points += 0.5;
-                else if (isManual && status === 'needs_validation') points += 0;
+                else if (isManual && status === 'verification_needed') points += 0;
                 // value_blocker = 0 points
             }
             return total === 0 ? 0 : Math.round((points / total) * 100);
@@ -262,13 +262,13 @@ AROPUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-05 17:55:16</sys_created_on>
         <sys_id>b319162bcfe84b908935fb251d851c5c</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>AROPUtils</sys_name>
         <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
         <sys_policy/>
         <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
         <sys_update_name>sys_script_include_b319162bcfe84b908935fb251d851c5c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-06-18 08:49:57</sys_updated_on>
+        <sys_updated_on>2026-06-18 11:04:02</sys_updated_on>
     </sys_script_include>
 </record_update>

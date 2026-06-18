@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[HR assignment groups are used by Now Assist HRSD for AI-driven routing recommendations. Groups with no members create silent AI routing failures.]]></ai_justification>
+        <check_name>HR Assignment Group Coverage</check_name>
+        <check_script><![CDATA[(function(checkDef, dateFilter) {
+    var cutoff = new GlideDateTime();
+    cutoff.addYearsUTC(-1);
+
+    // Collect distinct assignment groups used on HR cases in last 12 months
+    var usedGroups = {};
+    var grCases = new GlideRecord('sn_hr_core_case');
+    grCases.addQuery('sys_created_on', '>=', cutoff.getValue());
+    grCases.addQuery('assignment_group', '!=', '');
+    grCases.query();
+    while (grCases.next()) {
+        usedGroups[grCases.getValue('assignment_group')] = true;
+    }
+
+    var groupIds = Object.keys(usedGroups);
+    var totalGroups = groupIds.length;
+
+    if (totalGroups === 0) {
+        return {
+            status: 'not_ready',
+            actualValue: 'No assignment groups used on HR cases in last 12 months',
+            finding: 'No assignment groups found on HR cases in the last 12 months. Now Assist HRSD AI routing has no group structure to route cases to.'
+        };
+    }
+
+    // Check which of those groups have active members
+    var groupsWithMembers = 0;
+    for (var i = 0; i < groupIds.length; i++) {
+        var memGr = new GlideRecord('sys_user_grmember');
+        memGr.addQuery('group', groupIds[i]);
+        memGr.setLimit(1);
+        memGr.query();
+        if (memGr.next()) groupsWithMembers++;
+    }
+
+    var pct = Math.round((groupsWithMembers / totalGroups) * 100);
+    var actualValue = totalGroups + ' HR assignment groups used (last 12 months) | ' + groupsWithMembers + ' with active members (' + pct + '%)';
+
+    if (groupsWithMembers >= 3 && pct >= 80) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: groupsWithMembers + ' populated HR assignment groups. Now Assist HRSD AI routing has well-defined, staffed groups to route cases to.'
+        };
+    } else if (groupsWithMembers >= 1) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: 'Only ' + groupsWithMembers + ' of ' + totalGroups + ' HR assignment groups have members. Now Assist HRSD AI routing may attempt to assign cases to empty groups.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'No HR assignment groups have active members. Now Assist HRSD AI routing cannot function without populated assignment groups.'
+        };
+    }
+})]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>HRSD</module>
+        <number>CHK0001024</number>
+        <order>60</order>
+        <remediation_guidance>Populate HR assignment groups with active agents. Assign group managers. Ensure all groups used on HR cases have at least one active member. Now Assist HRSD AI routing depends on well-populated assignment groups.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 08:00:55</sys_created_on>
+        <sys_id>72e7f2edcf21c7d48935fb251d851c3d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HR Assignment Group Coverage</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_72e7f2edcf21c7d48935fb251d851c3d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 08:00:55</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_72e7f2edcf21c7d48935fb251d851c3d</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[HR assignment groups are used by Now Assist HRSD for AI-driven routing recommendations. Groups with no members create silent AI routing failures.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;HR Assignment Group Coverage&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function(checkDef, dateFilter) {
+    var cutoff = new GlideDateTime();
+    cutoff.addYearsUTC(-1);
+
+    // Collect distinct assignment groups used on HR cases in last 12 months
+    var usedGroups = {};
+    var grCases = new GlideRecord('sn_hr_core_case');
+    grCases.addQuery('sys_created_on', '&gt;=', cutoff.getValue());
+    grCases.addQuery('assignment_group', '!=', '');
+    grCases.query();
+    while (grCases.next()) {
+        usedGroups[grCases.getValue('assignment_group')] = true;
+    }
+
+    var groupIds = Object.keys(usedGroups);
+    var totalGroups = groupIds.length;
+
+    if (totalGroups === 0) {
+        return {
+            status: 'not_ready',
+            actualValue: 'No assignment groups used on HR cases in last 12 months',
+            finding: 'No assignment groups found on HR cases in the last 12 months. Now Assist HRSD AI routing has no group structure to route cases to.'
+        };
+    }
+
+    // Check which of those groups have active members
+    var groupsWithMembers = 0;
+    for (var i = 0; i &lt; groupIds.length; i++) {
+        var memGr = new GlideRecord('sys_user_grmember');
+        memGr.addQuery('group', groupIds[i]);
+        memGr.setLimit(1);
+        memGr.query();
+        if (memGr.next()) groupsWithMembers++;
+    }
+
+    var pct = Math.round((groupsWithMembers / totalGroups) * 100);
+    var actualValue = totalGroups + ' HR assignment groups used (last 12 months) | ' + groupsWithMembers + ' with active members (' + pct + '%)';
+
+    if (groupsWithMembers &gt;= 3 &amp;&amp; pct &gt;= 80) {
+        return {
+            status: 'ready',
+            actualValue: actualValue,
+            finding: groupsWithMembers + ' populated HR assignment groups. Now Assist HRSD AI routing has well-defined, staffed groups to route cases to.'
+        };
+    } else if (groupsWithMembers &gt;= 1) {
+        return {
+            status: 'needs_attention',
+            actualValue: actualValue,
+            finding: 'Only ' + groupsWithMembers + ' of ' + totalGroups + ' HR assignment groups have members. Now Assist HRSD AI routing may attempt to assign cases to empty groups.'
+        };
+    } else {
+        return {
+            status: 'not_ready',
+            actualValue: actualValue,
+            finding: 'No HR assignment groups have active members. Now Assist HRSD AI routing cannot function without populated assignment groups.'
+        };
+    }
+})]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;HRSD&lt;/module&gt;&lt;number&gt;CHK0001024&lt;/number&gt;&lt;order&gt;60&lt;/order&gt;&lt;remediation_guidance&gt;Populate HR assignment groups with active agents. Assign group managers. Ensure all groups used on HR cases have at least one active member. Now Assist HRSD AI routing depends on well-populated assignment groups.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 08:00:55&lt;/sys_created_on&gt;&lt;sys_id&gt;72e7f2edcf21c7d48935fb251d851c3d&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;HR Assignment Group Coverage&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_72e7f2edcf21c7d48935fb251d851c3d&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 08:00:55&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>2101601776</payload_hash>
+        <record_name>HR Assignment Group Coverage</record_name>
+        <reverted_from/>
+        <source>9687d303cf550f108935fb251d851c93</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 08:09:20</sys_created_on>
+        <sys_id>5ad97261cfa1c7d48935fb251d851c76</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ed9c70ac60000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 08:09:20</sys_updated_on>
+        <type>Check Definition</type>
+        <update_guid>d6d97261a8a1c7d484b79e8e0f5fde75</update_guid>
+        <update_guid_history>d6d97261a8a1c7d484b79e8e0f5fde75:2101601776</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="HR Assignment Group Coverage">1039cd75cfed0fd48935fb251d851ca4</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:35:37</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>5da658a1b19a4e4c845511112d1cba44</sys_id>
+        <sys_metadata>72e7f2edcf21c7d48935fb251d851c3d</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HR Assignment Group Coverage</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_72e7f2edcf21c7d48935fb251d851c3d</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_72e7f2edcf21c7d48935fb251d851c3d">5ad97261cfa1c7d48935fb251d851c76</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:35:37</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

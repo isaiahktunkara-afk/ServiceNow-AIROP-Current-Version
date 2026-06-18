@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="x_snc_airop_check_definition">
+    <x_snc_airop_check_definition action="DELETE">
+        <ai_justification><![CDATA[Now Assist is entitlement-gated. Without confirmed SKU entitlement, plugins install but AI features do not activate. Entitlement must be verified before any Now Assist configuration work begins.]]></ai_justification>
+        <check_name>Now Assist Entitlement Verification</check_name>
+        <check_script><![CDATA[(function() {
+    var t = new GlideRecord("samp_sw_license_metric");
+    if (!t.isValid()) {
+        return { status: "value_blocker", actualValue: "Required table samp_sw_license_metric not found", finding: "License Metric table is not available. Verify the SAM plugin is active." };
+    }
+    var matched = {};
+    function collectMatches(keyword) {
+        var gr = new GlideRecord("samp_sw_license_metric");
+        gr.addQuery("name", "CONTAINS", keyword);
+        gr.query();
+        while (gr.next()) { matched[gr.getUniqueValue()] = true; }
+    }
+    collectMatches("now_assist");
+    collectMatches("NowAssist");
+    collectMatches("now assist");
+    var count = Object.keys(matched).length;
+    var actualValue = count + " Now Assist license metric record(s) found";
+    if (count > 0) {
+        return { status: "ready", actualValue: actualValue, finding: count + " Now Assist license metric record(s) found. Confirm specific module entitlements (ITSM, ITOM, HRSD, CSM, etc.) with your ServiceNow account team." };
+    } else {
+        return { status: "value_blocker", actualValue: actualValue, finding: "No Now Assist license metric records found. Now Assist is entitlement-gated — confirm SKU entitlement with your ServiceNow account team before beginning configuration." };
+    }
+})()]]></check_script>
+        <is_active>true</is_active>
+        <is_clone_sensitive>false</is_clone_sensitive>
+        <is_manual>false</is_manual>
+        <module>PLATFORM</module>
+        <number>CHK0003309</number>
+        <order>130</order>
+        <remediation_guidance>Contact your ServiceNow account team to confirm Now Assist SKU entitlement for each module. Request entitlement confirmation in writing. Do not begin Now Assist configuration without confirmed entitlement.</remediation_guidance>
+        <sys_class_name>x_snc_airop_check_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 18:41:03</sys_created_on>
+        <sys_id>7f6a0539cf214fd48935fb251d851cef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Now Assist Entitlement Verification</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_update_name>x_snc_airop_check_definition_7f6a0539cf214fd48935fb251d851cef</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 18:41:03</sys_updated_on>
+    </x_snc_airop_check_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</application>
+        <file_path/>
+        <instance_id>48bb485aebdefa90cbdefceacad0cd82</instance_id>
+        <instance_name>demoalectriallwf137518</instance_name>
+        <name>x_snc_airop_check_definition_7f6a0539cf214fd48935fb251d851cef</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_snc_airop_check_definition"&gt;&lt;x_snc_airop_check_definition action="INSERT_OR_UPDATE"&gt;&lt;ai_justification&gt;&lt;![CDATA[Now Assist is entitlement-gated. Without confirmed SKU entitlement, plugins install but AI features do not activate. Entitlement must be verified before any Now Assist configuration work begins.]]&gt;&lt;/ai_justification&gt;&lt;check_name&gt;Now Assist Entitlement Verification&lt;/check_name&gt;&lt;check_script&gt;&lt;![CDATA[(function() {
+    var t = new GlideRecord("samp_sw_license_metric");
+    if (!t.isValid()) {
+        return { status: "value_blocker", actualValue: "Required table samp_sw_license_metric not found", finding: "License Metric table is not available. Verify the SAM plugin is active." };
+    }
+    var matched = {};
+    function collectMatches(keyword) {
+        var gr = new GlideRecord("samp_sw_license_metric");
+        gr.addQuery("name", "CONTAINS", keyword);
+        gr.query();
+        while (gr.next()) { matched[gr.getUniqueValue()] = true; }
+    }
+    collectMatches("now_assist");
+    collectMatches("NowAssist");
+    collectMatches("now assist");
+    var count = Object.keys(matched).length;
+    var actualValue = count + " Now Assist license metric record(s) found";
+    if (count &gt; 0) {
+        return { status: "ready", actualValue: actualValue, finding: count + " Now Assist license metric record(s) found. Confirm specific module entitlements (ITSM, ITOM, HRSD, CSM, etc.) with your ServiceNow account team." };
+    } else {
+        return { status: "value_blocker", actualValue: actualValue, finding: "No Now Assist license metric records found. Now Assist is entitlement-gated — confirm SKU entitlement with your ServiceNow account team before beginning configuration." };
+    }
+})()]]&gt;&lt;/check_script&gt;&lt;is_active&gt;true&lt;/is_active&gt;&lt;is_clone_sensitive&gt;false&lt;/is_clone_sensitive&gt;&lt;is_manual&gt;false&lt;/is_manual&gt;&lt;module&gt;PLATFORM&lt;/module&gt;&lt;number&gt;CHK0003309&lt;/number&gt;&lt;order&gt;130&lt;/order&gt;&lt;remediation_guidance&gt;Contact your ServiceNow account team to confirm Now Assist SKU entitlement for each module. Request entitlement confirmation in writing. Do not begin Now Assist configuration without confirmed entitlement.&lt;/remediation_guidance&gt;&lt;sys_class_name&gt;x_snc_airop_check_definition&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-06-18 18:41:03&lt;/sys_created_on&gt;&lt;sys_id&gt;7f6a0539cf214fd48935fb251d851cef&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Now Assist Entitlement Verification&lt;/sys_name&gt;&lt;sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="ServiceNow AI Readiness Optimization Platform"&gt;73e2562fcf244b908935fb251d851c78&lt;/sys_scope&gt;&lt;sys_update_name&gt;x_snc_airop_check_definition_7f6a0539cf214fd48935fb251d851cef&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-06-18 18:41:03&lt;/sys_updated_on&gt;&lt;/x_snc_airop_check_definition&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-173204990</payload_hash>
+        <record_name>Now Assist Entitlement Verification</record_name>
+        <reverted_from/>
+        <source>2cbb5372cf1103108935fb251d851c50</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by/>
+        <sys_created_on>2026-06-09 21:33:56</sys_created_on>
+        <sys_id>a73f8dbdcfe14fd48935fb251d851c0d</sys_id>
+        <sys_mod_count/>
+        <sys_recorded_at>19eae4e6da00000000</sys_recorded_at>
+        <sys_updated_by/>
+        <sys_updated_on/>
+        <type>Application File</type>
+        <update_guid>673f8dbd88e14fd452c0445980c4ac0d</update_guid>
+        <update_guid_history>673f8dbd88e14fd452c0445980c4ac0d:-173204990</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Now Assist Entitlement Verification">a33f8dbdcfe14fd48935fb251d851c0e</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-06-18 19:02:03</sys_created_on>
+        <sys_db_object display_value="" name="x_snc_airop_check_definition">x_snc_airop_check_definition</sys_db_object>
+        <sys_id>044f6debb2fa426180132a74c18695e9</sys_id>
+        <sys_metadata>7f6a0539cf214fd48935fb251d851cef</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Now Assist Entitlement Verification</sys_name>
+        <sys_package display_value="ServiceNow AI Readiness Optimization Platform" source="x_snc_airop">73e2562fcf244b908935fb251d851c78</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="ServiceNow AI Readiness Optimization Platform">73e2562fcf244b908935fb251d851c78</sys_scope>
+        <sys_scope_delete display_value="">3d15655892484816825b3e4059b36991</sys_scope_delete>
+        <sys_update_name>x_snc_airop_check_definition_7f6a0539cf214fd48935fb251d851cef</sys_update_name>
+        <sys_update_version display_value="x_snc_airop_check_definition_7f6a0539cf214fd48935fb251d851cef">a73f8dbdcfe14fd48935fb251d851c0d</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-06-18 19:02:03</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
